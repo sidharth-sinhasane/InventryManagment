@@ -12,8 +12,9 @@ inventryRouter.get('/',async (req,res)=>{
     }
 });
 
-inventryRouter.get('/:id', async (req, res) => {
+inventryRouter.get('/id', async (req, res) => {
     // route to get a particular inventory item 
+    // some issue
     try {
         const inventoryItem = await Inventry.findById(req.body.id);
         res.json(inventoryItem);

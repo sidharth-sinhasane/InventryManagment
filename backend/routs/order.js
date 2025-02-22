@@ -4,9 +4,9 @@ const PDFDocument = require('pdfkit');
 const orderRouter = express.Router();
 const { User } = require('../db/models'); 
 
-orderRouter.get('/receipt/:userId', async (req, res) => {
+orderRouter.get('/receipt', async (req, res) => {
     try {
-        const user = await User.findById(req.body.id);
+        const user = await User.findOne({username:req.body.username});
         if (!user) return res.status(404).json({ error: "User not found" });
 
         const doc = new PDFDocument();
@@ -36,10 +36,14 @@ orderRouter.get('/receipt/:userId', async (req, res) => {
 
         let total = 0;
 
-        user.list.forEach((item, index) => {
-            doc.text(`${index + 1}. ${item.name} - ${item.quantity} x $${item.price} = $${item.quantity * item.price}`);
-            total += item.quantity * item.price;
-        });
+        // user.list.forEach((item, index) => {
+        //     doc.text(`${index + 1}. ${item.name} - ${item.quantity} x $${item.price} = $${item.quantity * item.price}`);
+        //     total += item.quantity * item.price;
+        // });
+        for(let i=0;i<user.list.length;i++){
+            doc.text(`${i+1}. ${user.list[i].name} - ${user.list[i].quantity} x $${user.list[i].price} = $${user.list[i].quantity * user.list[i].price}`);
+            total += user.list[i].quantity * user.list[i].price;
+        }
 
         doc.moveDown();
         doc.text(`Total Amount: $${total}`, { bold: true });
