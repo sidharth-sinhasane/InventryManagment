@@ -68,7 +68,7 @@ const userData = new mongoose.Schema({
     },
     list:[
         {name: String, quantity: Number, price: Number}
-            ],
+        ],
             
     email : {
         type : String,
