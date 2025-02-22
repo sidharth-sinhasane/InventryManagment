@@ -78,7 +78,6 @@ const todaySalesSchema = new mongoose.Schema({
             process.exit(1)
         }
     }
-connectToDatabase()
 const Inventry = mongoose.model('Inventry', inventrySchema);
 const Location = mongoose.model('Location', locationSchema);    
 const Pricing = mongoose.model('Pricing', pricingSchema);
