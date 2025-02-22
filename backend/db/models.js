@@ -59,6 +59,26 @@ const todaySalesSchema = new mongoose.Schema({
         required : true
     }
     });
+
+const userData = new mongoose.Schema({
+    username: {
+        type : String,
+        required : true,
+    },
+    list:[
+        {name: String, quantity: Number, price: Number}
+            ],
+            
+    email : {
+        type : String,
+        required : true,
+    },
+    contact : {
+        type : Number,
+        required : true,
+    },
+});
+
     const connectToDatabase = async function (){
         try{
             await mongoose.connect("mongodb+srv://admin123:admin123@cluster0.ggizw.mongodb.net/")
