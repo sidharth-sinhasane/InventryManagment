@@ -7,9 +7,11 @@ locationRouter.get('/',async (req,res)=>{
         const locations = await Location.find({});
         res.json(locations);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch locations' });
+        res.status(500).json({ error: "Error fetching locations" });
     }
 });
+
+
 
 
 module.exports={locationRouter};

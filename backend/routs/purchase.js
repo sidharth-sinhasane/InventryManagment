@@ -7,12 +7,14 @@ purchaseRouter.get('/',async (req,res)=>{
 });
 
 purchaseRouter.put('/changeInventry',async (req,res)=>{
-    const {rfid,quantity}=req.body;
+    const listOfQuantity=req.body;
     try{
-        const item=await Inventry.findOne({rfid:rfid});
-        item.quantity-=quantity;
-        await item.save();
-        res.send(item);
+        for(let i=0;i<listOfQuantity.length;i++){
+            const item=await Inventry.findOne({rfid:listOfQuantity[i].rfid});
+            item.quantity-=listOfQuantity[i].quantity;
+            await item.save();
+        }
+        res.status(200).send({message:"quantity updated successfully"});
     }
     catch(error){
         console.log(error.message);
@@ -20,9 +22,13 @@ purchaseRouter.put('/changeInventry',async (req,res)=>{
     }
 })
 purchaseRouter.post('/addtoSales',async (req,res)=>{
-    const {rfid,quantity,price}=req.body;
+    const listOfQuantity=req.body;
     try{
-        const newSales=await TodaySales.create({rfid,quantity,price});
+        for(let i=0;i<listOfQuantity.length;i++){
+            const {rfid,quantity,price}=listOfQuantity[i];
+            const newSales=await TodaySales.create({rfid,quantity,price});
+            newSales.save();
+        }
         res.send(newSales);
     }
     catch(error){
