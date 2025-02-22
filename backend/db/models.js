@@ -26,8 +26,14 @@ const inventrySchema = new mongoose.Schema({
         type : Number,
         required : true,
         default : 100
+    },
+    auto_refill:{
+        type:Boolean,
+        default:true
     }
     });
+
+
 const locationSchema = new mongoose.Schema({
     rfid: {
         type: Number,
@@ -39,6 +45,8 @@ const locationSchema = new mongoose.Schema({
         required: true
     }
     });
+
+
 const pricingSchema = new mongoose.Schema({
     rfid: {
         type: Number,
@@ -50,6 +58,8 @@ const pricingSchema = new mongoose.Schema({
         {company: String, price: Number}
     ]
     });
+
+
 const todaySalesSchema = new mongoose.Schema({
     rfid: {
         type: Number,
@@ -69,6 +79,7 @@ const todaySalesSchema = new mongoose.Schema({
         required : true
     }
     });
+
 
 const userData = new mongoose.Schema({
     username: {
@@ -94,6 +105,25 @@ const userData = new mongoose.Schema({
     
 });
 
+
+const companyMail = new mongoose.Schema({
+    company: {
+        type: String,
+        required: true
+        },
+    companyemail : {
+        type : String,
+        required : true,
+    },
+});
+
+
+inventrySchema.virtual("stock_deficiency").get(function () {
+    return Math.max(this.threshold - this.quantity, 0);
+});
+
+
+
     const connectToDatabase = async function (){
         try{
             await mongoose.connect("mongodb+srv://admin123:admin123@cluster0.ggizw.mongodb.net/")
@@ -109,5 +139,6 @@ const Location = mongoose.model('Location', locationSchema);
 const Pricing = mongoose.model('Pricing', pricingSchema);
 const TodaySales = mongoose.model('TodaySales', todaySalesSchema);
 const User = mongoose.model('User', userData);
+const Gmail = mongoose.model('Gmail', companyMail);
 
-module.exports = {Inventry,Location,Pricing,TodaySales,User,connectToDatabase};
+module.exports = {Inventry,Location,Pricing,TodaySales,User,Gmail,connectToDatabase};
