@@ -70,10 +70,14 @@ const userData = new mongoose.Schema({
         type : String,
         required : true,
     },
-    age: {
+    age : {
         type : Number,
         required : true,
-    },      
+    },
+    list:[
+        {name: String, quantity: Number, price: Number}
+            ],
+            
     email : {
         type : String,
         required : true,

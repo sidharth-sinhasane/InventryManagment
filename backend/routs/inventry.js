@@ -3,6 +3,7 @@ const inventryRouter=express.Router();
 const {Inventry}=require('../db/models');
 
 inventryRouter.get('/',async (req,res)=>{
+    // route to get all inventory items 
     try {
         const inventoryItem = await Inventry.find({});
         res.json(inventoryItem);
@@ -12,6 +13,7 @@ inventryRouter.get('/',async (req,res)=>{
 });
 
 inventryRouter.get('/:id', async (req, res) => {
+    // route to get a particular inventory item 
     try {
         const inventoryItem = await Inventry.findById(req.body.id);
         res.json(inventoryItem);
@@ -22,6 +24,7 @@ inventryRouter.get('/:id', async (req, res) => {
 
 
 inventryRouter.post('/',async (req,res)=>{
+    // rout to add data in inventroy table
     try{
         const allInventry= req.body;
         for(let i=0;i<allInventry.length;i++){
