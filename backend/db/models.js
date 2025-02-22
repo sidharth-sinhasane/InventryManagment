@@ -18,9 +18,14 @@ const inventrySchema = new mongoose.Schema({
         type:Number,
         required: true
     },
-    expirty_date: {
+    expiry_date: {
         type: Date,
         required: true
+    },
+    Threshold: {
+        type : Number,
+        required : true,
+        default : 100
     }
     });
 const locationSchema = new mongoose.Schema({
@@ -103,4 +108,5 @@ const Inventry = mongoose.model('Inventry', inventrySchema);
 const Location = mongoose.model('Location', locationSchema);    
 const Pricing = mongoose.model('Pricing', pricingSchema);
 const TodaySales = mongoose.model('TodaySales', todaySalesSchema);
+const UserInfo = mongoose.model('userInfo', userData);
 module.exports = {Inventry,Location,Pricing,TodaySales,connectToDatabase};
