@@ -109,7 +109,6 @@ const Location = mongoose.model('Location', locationSchema);
 const Pricing = mongoose.model('Pricing', pricingSchema);
 const TodaySales = mongoose.model('TodaySales', todaySalesSchema);
 
+
 const User = mongoose.model('User', userData);
 module.exports = {Inventry,Location,Pricing,TodaySales,User,connectToDatabase};
-
-
