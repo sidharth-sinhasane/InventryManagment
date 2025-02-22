@@ -13,7 +13,7 @@ inventryRouter.get('/',async (req,res)=>{
 
 inventryRouter.get('/:id', async (req, res) => {
     try {
-        const inventoryItem = await Inventry.findBy(req.body.id);
+        const inventoryItem = await Inventry.findById(req.body.id);
         res.json(inventoryItem);
     } catch (error) {
         res.status(500).json({ error: "Error fetching inventory item" });
