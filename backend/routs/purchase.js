@@ -6,6 +6,11 @@ purchaseRouter.get('/',async (req,res)=>{
     res.send({message:"inside purchase router"});
 });
 
+const autoorder = async (rfid, currentquantity,Threshold) => {
+    // route to auto order items if quantity is less than 10
+    
+}
+
 purchaseRouter.put('/changeInventry',async (req,res)=>{
     // route to update quantity of items in inventory
     const listOfQuantity=req.body;
@@ -13,9 +18,11 @@ purchaseRouter.put('/changeInventry',async (req,res)=>{
         for(let i=0;i<listOfQuantity.length;i++){
             const item=await Inventry.findOne({rfid:listOfQuantity[i].rfid});
             item.quantity-=listOfQuantity[i].quantity;
+            // add function here
             await item.save();
         }
         res.status(200).send({message:"quantity updated successfully"});
+
     }
     catch(error){
         console.log(error.message);
