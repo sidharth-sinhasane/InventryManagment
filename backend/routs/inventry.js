@@ -3,11 +3,22 @@ const inventryRouter=express.Router();
 const {Inventry}=require('../db/models');
 
 inventryRouter.get('/',async (req,res)=>{
-    res.send({message:"inside inventry router"});
+    try {
+        const inventoryItem = await Inventry.find({});
+        res.json(inventoryItem);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch locations' });
+    }
 });
 inventryRouter.get('/id',async (req,res)=>{
-   
-    res.send({message:"inside inventry id router"});
+    inventryRouter.get('/:id', async (req, res) => {
+        try {
+            const inventoryItem = await Inventry.findBy(req.body.id);
+            res.json(inventoryItem);
+        } catch (error) {
+            res.status(500).json({ error: "Error fetching inventory item" });
+        }
+    });
 });
 
 inventryRouter.post('/',async (req,res)=>{
