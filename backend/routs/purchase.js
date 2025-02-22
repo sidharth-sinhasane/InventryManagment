@@ -7,9 +7,28 @@ purchaseRouter.get('/',async (req,res)=>{
 });
 
 purchaseRouter.put('/changeInventry',async (req,res)=>{
-    res.send({message:"inside changeInventry router"});
+    const {rfid,quantity}=req.body;
+    try{
+        const item=await Inventry.findOne({rfid:rfid});
+        item.quantity-=quantity;
+        await item.save();
+        res.send(item);
+    }
+    catch(error){
+        console.log(error.message);
+        res.send({error:error.message});
+    }
 })
 purchaseRouter.post('/addtoSales',async (req,res)=>{
-    res.send({message:"inside addSales router"});
+    const {rfid,quantity,price}=req.body;
+    try{
+        const newSales=await TodaySales.create({rfid,quantity,price});
+        res.send(newSales);
+    }
+    catch(error){
+        console.log(error.message);
+        res.send({error:error.message});
+    }
+
 });
 module.exports={purchaseRouter};

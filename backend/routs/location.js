@@ -1,9 +1,14 @@
 const express = require('express');
-const LocationRouter=express.Router();
+const locationRouter=express.Router();
 const {Location}=require('../db/models');
 
-LocationRouter.get('/',async (req,res)=>{
-    res.send({message:"inside location router"});
+locationRouter.get('/',async (req,res)=>{
+    try {
+        const locations = await Location.find({}); // Wait for the query to resolve
+        res.json(locations); // Send the actual array, not a Promise
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch locations' });
+    }
 });
 
-module.exports={LocationRouter};
+module.exports={locationRouter};
