@@ -51,6 +51,10 @@ const todaySalesSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    date: {
+        type: Date,
+        required: true,
+    },
     quantity: {
         type: Number,
         required: true,
@@ -66,10 +70,10 @@ const userData = new mongoose.Schema({
         type : String,
         required : true,
     },
-    list:[
-        {name: String, quantity: Number, price: Number}
-            ],
-            
+    age: {
+        type : Number,
+        required : true,
+    },      
     email : {
         type : String,
         required : true,
@@ -78,6 +82,9 @@ const userData = new mongoose.Schema({
         type : Number,
         required : true,
     },
+    list2 :[
+        {name: String, quantity: Number, price: Number}
+            ],
 });
 
     const connectToDatabase = async function (){
