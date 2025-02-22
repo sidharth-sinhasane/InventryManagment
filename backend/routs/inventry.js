@@ -10,16 +10,16 @@ inventryRouter.get('/',async (req,res)=>{
         res.status(500).json({ error: 'Failed to fetch locations' });
     }
 });
-inventryRouter.get('/id',async (req,res)=>{
-    inventryRouter.get('/:id', async (req, res) => {
-        try {
-            const inventoryItem = await Inventry.findBy(req.body.id);
-            res.json(inventoryItem);
-        } catch (error) {
-            res.status(500).json({ error: "Error fetching inventory item" });
-        }
-    });
+
+inventryRouter.get('/:id', async (req, res) => {
+    try {
+        const inventoryItem = await Inventry.findBy(req.body.id);
+        res.json(inventoryItem);
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching inventory item" });
+    }
 });
+
 
 inventryRouter.post('/',async (req,res)=>{
     try{
