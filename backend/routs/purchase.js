@@ -1,12 +1,13 @@
 const express = require('express');
 const purchaseRouter=express.Router();
-const {Inventry,TodaySales}=require('../db/models');
+const {Inventry,TodaySales,User}=require('../db/models');
 
 purchaseRouter.get('/',async (req,res)=>{
     res.send({message:"inside purchase router"});
 });
 
 purchaseRouter.put('/changeInventry',async (req,res)=>{
+    // route to update quantity of items in inventory
     const listOfQuantity=req.body;
     try{
         for(let i=0;i<listOfQuantity.length;i++){
@@ -22,14 +23,21 @@ purchaseRouter.put('/changeInventry',async (req,res)=>{
     }
 })
 purchaseRouter.post('/addtoSales',async (req,res)=>{
+    // route to add sales data in todaysales table
+    // route to add user data in user table
     const listOfQuantity=req.body;
     try{
-        for(let i=0;i<listOfQuantity.length;i++){
-            const {rfid,quantity,price}=listOfQuantity[i];
-            const newSales=await TodaySales.create({rfid,quantity,price});
-            newSales.save();
-        }
-        res.send(newSales);
+        const salesPromises = listOfQuantity.list.map(({ rfid, quantity, price }) => 
+            TodaySales.create({ rfid, quantity, price, date: new Date() })
+        );
+        await Promise.all(salesPromises);
+
+        const { username, age, contact, email } = listOfQuantity;
+        const list = listOfQuantity.list.map(({ name, quantity, price }) => ({ name, quantity, price }));
+
+        await User.create({ username, age, email, contact, list });
+
+        res.status(200).json({ message: "Sales added successfully" });
     }
     catch(error){
         console.log(error.message);

@@ -18,7 +18,7 @@ const inventrySchema = new mongoose.Schema({
         type:Number,
         required: true
     },
-    expiry_date: {
+    expirty_date: {
         type: Date,
         required: true
     },
@@ -54,7 +54,7 @@ const todaySalesSchema = new mongoose.Schema({
     rfid: {
         type: Number,
         required: true,
-        unique: true
+        unique: false
     },
     date: {
         type: Date,
@@ -108,6 +108,6 @@ const Inventry = mongoose.model('Inventry', inventrySchema);
 const Location = mongoose.model('Location', locationSchema);    
 const Pricing = mongoose.model('Pricing', pricingSchema);
 const TodaySales = mongoose.model('TodaySales', todaySalesSchema);
-const UserInfo = mongoose.model('userInfo', userData);
+const User = mongoose.model('User', userData);
 
-module.exports = {Inventry,Location,Pricing,TodaySales,UserInfo,connectToDatabase};
+module.exports = {Inventry,Location,Pricing,TodaySales,User,connectToDatabase};

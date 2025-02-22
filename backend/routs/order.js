@@ -6,7 +6,7 @@ const { UserInfo, TodaySales } = require('../db/models');
 
 orderRouter.get('/receipt', async (req, res) => {
     try {
-        const user = await UserInfo.find({rfid:req.body.rfid});
+        const user = await User.findById(req.body.id);
         if (!user) return res.status(404).json({ error: "User not found" });
 
         const doc = new PDFDocument();
@@ -30,6 +30,7 @@ orderRouter.get('/receipt', async (req, res) => {
         doc.moveDown();
 
         let total = 0;
+
         user.list.forEach((item, index) => {
             doc.text(`${index + 1}. ${item.name} - ${item.quantity} x $${item.price} = $${item.quantity * item.price}`);
             total += item.quantity * item.price;
