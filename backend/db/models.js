@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+require("dotenv").config();
 const inventrySchema = new mongoose.Schema({
     rfid: {
         type: Number,
@@ -40,7 +40,7 @@ const pricingSchema = new mongoose.Schema({
         required: true,
         unique: true,
         list:[
-            {company: String, price: int}
+            {company: String, price: Number}
         ]
     }
     });
