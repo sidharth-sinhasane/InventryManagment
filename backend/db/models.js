@@ -44,3 +44,18 @@ const pricingSchema = new mongoose.Schema({
         ]
     }
     });
+const todaySalesSchema = new mongoose.Schema({
+    rfid: {
+        type: int,
+        required: true,
+        unique: true
+    },
+    quantity: {
+        type: int,
+        required: true,
+    },
+    price: {
+        type: int,
+        required : true
+    }
+    });
