@@ -39,10 +39,11 @@ const pricingSchema = new mongoose.Schema({
         type: Number,
         required: true,
         unique: true,
-        list:[
-            {company: String, price: Number}
-        ]
-    }
+        
+    },
+    list:[
+        {company: String, price: Number}
+    ]
     });
 const todaySalesSchema = new mongoose.Schema({
     rfid: {
