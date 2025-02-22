@@ -86,9 +86,7 @@ const userData = new mongoose.Schema({
         type : Number,
         required : true,
     },
-    list2 :[
-        {name: String, quantity: Number, price: Number}
-            ],
+    
 });
 
     const connectToDatabase = async function (){
