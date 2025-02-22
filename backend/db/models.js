@@ -49,7 +49,7 @@ const todaySalesSchema = new mongoose.Schema({
     rfid: {
         type: Number,
         required: true,
-        unique: true
+        unique: false
     },
     date: {
         type: Date,
@@ -85,10 +85,7 @@ const userData = new mongoose.Schema({
     contact : {
         type : Number,
         required : true,
-    },
-    list2 :[
-        {name: String, quantity: Number, price: Number}
-            ],
+    }
 });
 
     const connectToDatabase = async function (){
@@ -105,4 +102,5 @@ const Inventry = mongoose.model('Inventry', inventrySchema);
 const Location = mongoose.model('Location', locationSchema);    
 const Pricing = mongoose.model('Pricing', pricingSchema);
 const TodaySales = mongoose.model('TodaySales', todaySalesSchema);
-module.exports = {Inventry,Location,Pricing,TodaySales,connectToDatabase};
+const User = mongoose.model('User', userData);
+module.exports = {Inventry,Location,Pricing,TodaySales,User,connectToDatabase};
