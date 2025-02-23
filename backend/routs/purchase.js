@@ -49,9 +49,10 @@ purchaseRouter.put('/changeInventry',async (req,res)=>{
         for(let i=0;i<listOfQuantity.length;i++){
             const item=await Inventry.findOne({rfid:listOfQuantity[i].rfid});
             item.quantity-=listOfQuantity[i].quantity;
-            // add function here
+            
             await item.save();
         }
+        // add function here
         console.log(autoorder());
         res.status(200).send({message:"quantity updated successfully"});
 
