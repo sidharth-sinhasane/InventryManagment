@@ -26,10 +26,6 @@ const inventrySchema = new mongoose.Schema({
         type : Number,
         required : true,
         default : 100
-    },
-    auto_refill:{
-        type:Boolean,
-        default:true
     }
     });
 

@@ -36,10 +36,6 @@ orderRouter.get('/receipt', async (req, res) => {
 
         let total = 0;
 
-        // user.list.forEach((item, index) => {
-        //     doc.text(`${index + 1}. ${item.name} - ${item.quantity} x $${item.price} = $${item.quantity * item.price}`);
-        //     total += item.quantity * item.price;
-        // });
         for(let i=0;i<user.list.length;i++){
             doc.text(`${i+1}. ${user.list[i].name} - ${user.list[i].quantity} x $${user.list[i].price} = $${user.list[i].quantity * user.list[i].price}`);
             total += user.list[i].quantity * user.list[i].price;

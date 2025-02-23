@@ -1,37 +1,58 @@
 const express = require('express');
 const purchaseRouter=express.Router();
-const {Inventry,TodaySales,User}=require('../db/models');
+const {Inventry,TodaySales,User,Pricing}=require('../db/models');
 
 purchaseRouter.get('/',async (req,res)=>{
-    minprice("123456789");
+    minprice(1017);
     res.send({message:"inside purchase router"});
 });
 const minprice = async (rfid) => {
     // route to find minimum price of an item
     try {
-        const price = await Pricing.find({ rfid }).sort({ price: 1 }).limit(1);
-        console.log(price);
-        return price;
+        const pricing = await Pricing.findOne({ rfid });
+        if (!pricing) throw new Error("Item not found in pricing list");
+        const minPriceEntry = pricing.list.reduce((min, item) => item.price < min.price ? item : min, pricing.list[0]);
+        console.log(minPriceEntry.price,minPriceEntry.company);
+        return { company: minPriceEntry.company, price: minPriceEntry.price };
+        
     } catch (error) {
         console.log(error.message);
         return error.message;
     }
 }
-const autoorder = async (rfid, currentquantity,Threshold) => {
-    // route to auto order items if quantity is less than 10
-    
-}
+const autoorder = async () => {
+    const items = await Inventry.find();
+    const orders = {};
+
+    for (const item of items) {
+        if (item.quantity < item.threshold) {
+            const { company, price } = await minprice(item.rfid);
+            const quantity = item.threshold - item.quantity;
+
+            if (!orders[company]) {
+                orders[company] = [];
+            }
+            
+            orders[company].push({ rfid: item.rfid, price, quantity });
+        }
+    }
+
+    return orders;
+};
+
 
 purchaseRouter.put('/changeInventry',async (req,res)=>{
     // route to update quantity of items in inventory
     const listOfQuantity=req.body;
     try{
+       
         for(let i=0;i<listOfQuantity.length;i++){
             const item=await Inventry.findOne({rfid:listOfQuantity[i].rfid});
             item.quantity-=listOfQuantity[i].quantity;
             // add function here
             await item.save();
         }
+        console.log(autoorder());
         res.status(200).send({message:"quantity updated successfully"});
 
     }
