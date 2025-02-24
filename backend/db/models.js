@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-require("dotenv").config();
+require("dotenv").config({path: '../.env'});
 const inventrySchema = new mongoose.Schema({
     rfid: {
         type: Number,
@@ -122,7 +122,7 @@ inventrySchema.virtual("stock_deficiency").get(function () {
 
     const connectToDatabase = async function (){
         try{
-            await mongoose.connect("mongodb+srv://admin123:admin123@cluster0.ggizw.mongodb.net/")
+            await mongoose.connect(process.env.MONGODB_URL);
             console.log("connected to database")
         }
         catch(error){
