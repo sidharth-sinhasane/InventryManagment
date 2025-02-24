@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Data</title>
+    <link rel="stylesheet" href="stylesdashboard.css">
+</head>
+<body>
+    <h2>Inventory Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>RFID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Expiry Date</th>
+                <th>Section</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            
+        </tbody>
+    </table>
+    <br><br><br><br><br>
+    <h2>Click Button to get Today's Sale</h2>
+    <button id="show-sales">Sales</button>
+    
+    <div id="sales-section" style="display: none;">
+        <h2>Today's Sales</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Attributes</th>
+                    <th>Price</th>
+                    <th>Total Sale</th>
+                </tr>
+            </thead>
+            <tbody id="sales-table-body">
+               
+            </tbody>
+        </table>
+    </div>
+    
+    <h2>Suggestion Box</h2>
+    <textarea id="suggestion-box" rows="4" cols="50" placeholder="Enter your suggestion here..." ></textarea>
+    <br>
+    <button id="submit-suggestion">Submit</button>
+    
+    <script src="scriptdashboard.js"></script>
+</body>
+</html>
