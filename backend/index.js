@@ -1,4 +1,5 @@
 const express = require('express');
+const cors= require('cors');
 const app = express();
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -12,6 +13,7 @@ const { companypricesRouter } = require('./routs/companyprices.js');
 const {todayreportRouter}=require('./routs/report.js');
 connectToDatabase();
 app.use(express.json());
+app.use(cors());
 app.get('/', async (req, res) => {
     await Inventry.updateMany({}, { $set: { Threshold: 20 } });
     res.send("Hello World");

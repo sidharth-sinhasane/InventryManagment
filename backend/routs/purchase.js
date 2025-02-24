@@ -3,8 +3,7 @@ const purchaseRouter=express.Router();
 const {Inventry,TodaySales,User,Pricing}=require('../db/models');
 
 purchaseRouter.get('/',async (req,res)=>{
-    minprice(1017);
-    res.send({message:"inside purchase router"});
+    res.json(autoorder());
 });
 const minprice = async (rfid) => {
     // route to find minimum price of an item
@@ -25,9 +24,10 @@ const autoorder = async () => {
     const orders = {};
 
     for (const item of items) {
-        if (item.quantity < item.threshold) {
+        
+        if (item.quantity < item.Threshold) {
             const { company, price } = await minprice(item.rfid);
-            const quantity = item.threshold - item.quantity;
+            const quantity = item.Threshold - item.quantity;
 
             if (!orders[company]) {
                 orders[company] = [];
@@ -36,7 +36,7 @@ const autoorder = async () => {
             orders[company].push({ rfid: item.rfid, price, quantity });
         }
     }
-
+    console.log(orders)
     return orders;
 };
 

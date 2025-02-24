@@ -30,7 +30,7 @@ locationRouter.post('/',async (req,res)=>{
 locationRouter.get('/id', async (req, res) => {
     // route to get a particular location
     try {
-        const location = await Location.find({refid:req.body.id});
+        const location = await Location.find({rfid:req.body.id});
         res.json(location);
     } catch (error) {
         res.status(500).json({ error: "Error fetching location" });
